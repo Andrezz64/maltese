@@ -29,10 +29,22 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: author.name,
     description: author.description || `Textos e obras de ${author.name} publicados no ${siteConfig.title}.`,
+    alternates: { canonical: `${siteConfig.url}autores/${author.slug}` },
     openGraph: {
       title: `${author.name} — ${siteConfig.title}`,
-      description: author.description,
+      description: author.description || `Textos e obras de ${author.name}.`,
+      url: `${siteConfig.url}autores/${author.slug}`,
       type: "profile",
+      siteName: siteConfig.title,
+      ...(author.avatar && {
+        images: [{ url: author.avatar, width: 400, height: 400, alt: author.name }],
+      }),
+    },
+    twitter: {
+      card: author.avatar ? "summary" : "summary",
+      title: `${author.name} — ${siteConfig.title}`,
+      description: author.description || `Textos e obras de ${author.name}.`,
+      ...(author.avatar && { images: [author.avatar] }),
     },
   };
 }

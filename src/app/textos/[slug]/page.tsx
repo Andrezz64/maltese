@@ -9,6 +9,7 @@ import ArticleReaderControls from "@/components/ArticleReaderControls";
 import ArticleContent from "@/components/ArticleContent";
 import PostTocSidebar from "@/components/PostTocSidebar";
 import AuthorCard from "@/components/AuthorCard";
+import siteConfig from "@site-config";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -29,21 +30,35 @@ export async function generateMetadata({ params }: PageProps) {
   const post = await getPostBySlug(slug);
 
   if (!post) {
-    return {
-      title: "Texto não encontrado",
-    };
+    return { title: "Texto não encontrado" };
   }
+
+  const url = `${siteConfig.url}textos/${post.slug}`;
+  const ogImage = post.coverImage || null;
 
   return {
     title: post.title,
     description: post.summary,
+    alternates: { canonical: url },
     openGraph: {
-      title: `${post.title} — Maltese`,
+      title: post.title,
       description: post.summary,
+      url,
       type: "article",
+      siteName: siteConfig.title,
+      locale: siteConfig.language,
       publishedTime: post.date,
-      authors: [post.author || "Maltese"],
+      authors: [post.author || siteConfig.author],
       tags: post.tags,
+      ...(ogImage && {
+        images: [{ url: ogImage, width: 1200, height: 675, alt: post.title }],
+      }),
+    },
+    twitter: {
+      card: ogImage ? "summary_large_image" : "summary",
+      title: post.title,
+      description: post.summary,
+      ...(ogImage && { images: [ogImage] }),
     },
   };
 }

@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     default: `${siteConfig.title} — ${siteConfig.tagline}`,
   },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
   keywords: [
     "Escritos",
     "Ensaios",
@@ -56,9 +57,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.language,
     url: siteConfig.url,
-    title: siteConfig.title,
+    title: `${siteConfig.title} — ${siteConfig.tagline}`,
     description: siteConfig.description,
-    siteName: `${siteConfig.title} — Escritos`,
+    siteName: siteConfig.title,
   },
   twitter: {
     card: "summary_large_image",

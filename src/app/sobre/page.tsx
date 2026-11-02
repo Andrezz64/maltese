@@ -5,6 +5,19 @@ import siteConfig from "@site-config";
 export const metadata = {
   title: "Manifesto",
   description: `Conheça os valores, objetivos e a proposta editorial da revista ${siteConfig.title}.`,
+  alternates: { canonical: `${siteConfig.url}sobre` },
+  openGraph: {
+    title: `Manifesto — ${siteConfig.title}`,
+    description: `Conheça os valores, objetivos e a proposta editorial da revista ${siteConfig.title}.`,
+    url: `${siteConfig.url}sobre`,
+    type: "website" as const,
+    siteName: siteConfig.title,
+  },
+  twitter: {
+    card: "summary" as const,
+    title: `Manifesto — ${siteConfig.title}`,
+    description: `Conheça os valores, objetivos e a proposta editorial da revista ${siteConfig.title}.`,
+  },
 };
 
 export default function SobrePage() {
