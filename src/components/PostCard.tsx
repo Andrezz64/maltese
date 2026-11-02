@@ -59,7 +59,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
 
   return (
     <article
-      className={`group relative rounded-xl border transition-all duration-300 hover:shadow-md ${
+      className={`group relative rounded-xl border transition-all duration-300 hover:shadow-md overflow-hidden ${
         featured
           ? "p-6 sm:p-8 bg-[var(--bg-card)] border-[var(--border-color)]"
           : "p-5 sm:p-6 bg-[var(--bg-card)] border-[var(--border-color)]"
@@ -69,6 +69,18 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         borderColor: "var(--border-color)",
       }}
     >
+      {/* Cover image */}
+      {post.coverImage && (
+        <Link href={`/textos/${post.slug}`} className="block mb-4">
+          <div className="overflow-hidden rounded-xl w-full" style={{ aspectRatio: "16/9" }}>
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        </Link>
+      )}
       {/* Top meta bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs">
         <div className="flex items-center gap-2">

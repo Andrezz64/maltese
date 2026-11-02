@@ -7,9 +7,20 @@ export interface AuthorSocials {
   website?: string;
   github?: string;
   twitter?: string;
+  bluesky?: string;
   linkedin?: string;
   instagram?: string;
+  youtube?: string;
+  tiktok?: string;
   mastodon?: string;
+  threads?: string;
+  telegram?: string;
+  whatsapp?: string;
+  facebook?: string;
+  substack?: string;
+  medium?: string;
+  devto?: string;
+  reddit?: string;
 }
 
 export interface AuthorMeta {

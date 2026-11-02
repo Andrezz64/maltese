@@ -3,12 +3,12 @@ title: "O Mercado da Ilusão: Algoritmos e a Venda da Ignorância"
 slug: "mercado-da-ilusao-algoritmos-ignorancia"
 date: "2026-10-05"
 summary: "Como as eleições se tornaram reféns de bolhas de funelamento digital, onde a razão é descartada e a ignorância se torna o produto mais lucrativo."
-category: "Reflexão"
+category: "Artigo de opnião"
 tags: ["Política","Eleições 2026","Redes Sociais","Polarização"]
 readingTime: "3 min"
-featured: true
+featured: false
 epigraph: "O sujeito ideal do domínio totalitário não é o nazista convicto ou o comunista convicto, mas as pessoas para quem a distinção entre fato e ficção, verdadeiro e falso, não existe mais. — Hannah Arendt"
-author: "Eternauta  Maltese"
+author: "eternauta-maltese"
 ---
 
 ## A Morte da Razão e o Triunfo do Algoritmo

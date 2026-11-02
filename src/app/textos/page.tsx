@@ -5,7 +5,7 @@ import SearchAndFilter from "@/components/SearchAndFilter";
 export const metadata = {
   title: "Arquivo Geral de Escritos",
   description:
-    "Explore todos os ensaios, manifestos, apontamentos e fragmentos críticos publicados no Caderno Maltese.",
+    "Explore todos os ensaios, manifestos, apontamentos e fragmentos críticos publicados na revista.",
 };
 
 export default function TextosPage() {
@@ -21,7 +21,7 @@ export default function TextosPage() {
           className="text-3xl sm:text-4xl font-extrabold font-serif tracking-tight"
           style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
         >
-          Arquivo de textos
+         Publicações
         </h1>
         <p
           className="text-sm sm:text-base leading-relaxed"

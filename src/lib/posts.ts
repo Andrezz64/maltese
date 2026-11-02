@@ -42,6 +42,7 @@ export function getAllPosts(): PostMeta[] {
         featured: Boolean(data.featured),
         epigraph: data.epigraph || undefined,
         author: data.author || "Maltese",
+        coverImage: data.coverImage || undefined,
       } as PostMeta;
     });
 
@@ -95,6 +96,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       featured: Boolean(data.featured),
       epigraph: data.epigraph || undefined,
       author: data.author || "Maltese",
+      coverImage: data.coverImage || undefined,
       content,
       htmlContent,
       toc,

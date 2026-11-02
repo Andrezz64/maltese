@@ -2,10 +2,12 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Globe, Link2, AtSign, ExternalLink, Calendar, Clock, ArrowRight } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getAllAuthors, getAuthorBySlug } from "@/lib/authors";
 import { getAllPosts } from "@/lib/posts";
 import { PostMeta } from "@/types/post";
+import { AuthorSocials } from "@/types/author";
+import { SOCIAL_META } from "@/components/SocialIcons";
 import PostCard from "@/components/PostCard";
 import siteConfig from "@site-config";
 
@@ -36,33 +38,19 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 // ─── Social link row ──────────────────────────────────────────────────────────
-function SocialRow({ socials }: { socials: Record<string, string | undefined> }) {
-  const entries = Object.entries(socials).filter(([, v]) => Boolean(v));
+function SocialRow({ socials }: { socials: AuthorSocials }) {
+  const entries = (Object.entries(socials) as [keyof AuthorSocials, string | undefined][]).filter(
+    ([, v]) => Boolean(v)
+  );
   if (entries.length === 0) return null;
-
-  const icons: Record<string, React.ComponentType<{ className?: string }>> = {
-    website: Globe,
-    github: Link2,
-    twitter: AtSign,
-    linkedin: ExternalLink,
-    instagram: ExternalLink,
-    mastodon: AtSign,
-  };
-
-  const labels: Record<string, string> = {
-    website: "Site",
-    github: "GitHub",
-    twitter: "Twitter / X",
-    linkedin: "LinkedIn",
-    instagram: "Instagram",
-    mastodon: "Mastodon",
-  };
 
   return (
     <div className="flex flex-wrap gap-2">
       {entries.map(([key, url]) => {
         if (!url) return null;
-        const Icon = icons[key] ?? ExternalLink;
+        const meta = SOCIAL_META[key];
+        if (!meta) return null;
+        const { Icon, label } = meta;
         return (
           <a
             key={key}
@@ -77,7 +65,7 @@ function SocialRow({ socials }: { socials: Record<string, string | undefined> })
             }}
           >
             <Icon className="w-3.5 h-3.5" />
-            {labels[key] ?? key}
+            {label}
           </a>
         );
       })}
@@ -105,7 +93,7 @@ async function AuthorPageContent({ paramsPromise }: { paramsPromise: Promise<{ s
   }
 
   const authorPosts: PostMeta[] = allPosts.filter(
-    (p) => normalizeName(p.author || "") === normalizeName(author.name)
+    (p) => normalizeName(p.author || "") === normalizeName(author.slug)
   );
 
   const featuredPosts = authorPosts.filter((p) => p.featured);
@@ -148,6 +136,19 @@ async function AuthorPageContent({ paramsPromise }: { paramsPromise: Promise<{ s
         className="rounded-2xl border p-6 sm:p-8 space-y-6"
         style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border-color)" }}
       >
+                    {/* Post count badge */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold"
+                style={{ backgroundColor: "var(--badge-bg)", color: "var(--accent-red)" }}
+              >
+                {authorPosts.length === 0
+                  ? "Nenhum publicação"
+                  : authorPosts.length === 1
+                  ? "Uma publicação"
+                  : `${authorPosts.length} Publicações`}
+              </span>
+            </div>
         <div className="flex flex-col sm:flex-row gap-5 items-start">
           {/* Avatar */}
           {author.avatar ? (
@@ -183,25 +184,13 @@ async function AuthorPageContent({ paramsPromise }: { paramsPromise: Promise<{ s
                 {author.name}
               </h1>
               {author.role && (
-                <p className="mt-1 text-sm font-semibold opacity-70" style={{ color: "var(--text-muted)" }}>
+                <p className="mt-1 mb-3 text-sm font-semibold opacity-70" style={{ color: "var(--text-muted)" }}>
                   {author.role}
                 </p>
               )}
             </div>
 
-            {/* Post count badge */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold"
-                style={{ backgroundColor: "var(--badge-bg)", color: "var(--accent-red)" }}
-              >
-                {authorPosts.length === 0
-                  ? "Nenhum texto publicado"
-                  : authorPosts.length === 1
-                  ? "1 texto publicado"
-                  : `${authorPosts.length} textos publicados`}
-              </span>
-            </div>
+
 
             {/* Socials */}
             {author.socials && (

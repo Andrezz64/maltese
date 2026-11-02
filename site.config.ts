@@ -49,7 +49,7 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   title: "Maltése",
-  tagline: "Arquivo de Escritos, Crítica & Liberdade",
+  tagline: "Revista de Escritos, Crítica & Liberdade",
   description:
     "Página autoral e coletiva dedicada a ensaios, manifestos, pensamento crítico, filosofia social e reflexões sobre a liberdade e emancipação.",
   author: "Maltese",
@@ -122,13 +122,14 @@ export const siteConfig: SiteConfig = {
   editorial: {
     defaultCategory: "Manifestos",
     categories: [
-      "Manifestos",
-      "Ensaios",
+      "Manifesto",
+      "Ensaio",
       "Crítica Social",
       "Poesia & Fragmentos",
       "Filosofia & Teoria",
-      "Crônicas",
+      "Crônica",
       "Reflexão",
+      "Artigo de opnião"
     ],
     defaultAuthor: "Maltese",
     wordsPerMinute: 200,

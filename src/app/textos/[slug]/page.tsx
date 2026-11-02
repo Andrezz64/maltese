@@ -108,6 +108,20 @@ async function PostDetailContent({ paramsPromise }: { paramsPromise: Promise<{ s
         </div>
       </div>
 
+      {/* Cover Image Hero */}
+      {post.coverImage && (
+        <div
+          className={`overflow-hidden rounded-2xl w-full ${hasToc ? "max-w-5xl" : "max-w-3xl"} mx-auto`}
+          style={{ aspectRatio: "16/9" }}
+        >
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
       {/* Article Header */}
       <header
         className={`space-y-4 border-b pb-8 ${hasToc ? "max-w-5xl" : "max-w-3xl"} mx-auto w-full`}

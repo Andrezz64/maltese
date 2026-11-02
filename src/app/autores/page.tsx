@@ -2,7 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllAuthors } from "@/lib/authors";
 import { getAllPosts } from "@/lib/posts";
-import { Globe, Link2, AtSign, ExternalLink, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { AuthorSocials } from "@/types/author";
+import { SOCIAL_META } from "@/components/SocialIcons";
 import siteConfig from "@site-config";
 
 export const metadata = {
@@ -37,7 +39,7 @@ export default function AutoresPage() {
           className="text-sm sm:text-base leading-relaxed"
           style={{ color: "var(--text-secondary)", fontFamily: "var(--font-serif-body)" }}
         >
-          Vozes que compõem o Caderno Maltese — escritores, pensadores e articulistas que contribuem
+          Vozes que compõem nossa revista — escritores, pensadores e articulistas que contribuem
           com ensaios, manifestos e reflexões.
         </p>
       </div>
@@ -130,9 +132,14 @@ export default function AutoresPage() {
                   </span>
 
                   <div className="flex items-center gap-2">
-                    {author.socials?.website && <Globe className="w-3.5 h-3.5 opacity-50" style={{ color: "var(--text-secondary)" }} />}
-                    {author.socials?.github && <Link2 className="w-3.5 h-3.5 opacity-50" style={{ color: "var(--text-secondary)" }} />}
-                    {author.socials?.twitter && <AtSign className="w-3.5 h-3.5 opacity-50" style={{ color: "var(--text-secondary)" }} />}
+                    {author.socials && (Object.entries(author.socials) as [keyof AuthorSocials, string | undefined][])
+                      .filter(([, v]) => Boolean(v))
+                      .slice(0, 4)
+                      .map(([key]) => {
+                        const meta = SOCIAL_META[key];
+                        if (!meta) return null;
+                        return <meta.Icon key={key} className="w-3.5 h-3.5 opacity-50" />;
+                      })}
                     <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--accent-red)" }} />
                   </div>
                 </div>

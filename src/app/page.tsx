@@ -87,7 +87,7 @@ export default function HomePage() {
             Nenhum texto publicado ainda
           </h3>
           <p className="text-sm max-w-md mx-auto" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-serif-body)" }}>
-            O caderno está pronto para receber suas reflexões. Utilize o Gerador de MD para redigir e baixar seu primeiro arquivo!
+            A revista está pronta para receber suas reflexões. Utilize o Gerador de MD para redigir e baixar seu primeiro arquivo!
           </p>
           <div className="pt-2">
             <Link
@@ -163,7 +163,7 @@ export default function HomePage() {
             <h3 className="text-sm font-bold uppercase tracking-widest" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif-title)" }}>
               Outros Escritos & Fragmentos
             </h3>
-            <span className="text-xs opacity-70">Arquivo Cronológico</span>
+            <span className="text-xs opacity-70">Publicações Cronológicas</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

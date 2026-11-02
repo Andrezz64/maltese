@@ -98,7 +98,7 @@ export default function Header() {
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-2 border-b flex flex-wrap items-center justify-between text-xs tracking-wider uppercase font-medium" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: "var(--accent-red)" }}></span>
-            <span>{currentDate || "Caderno de Escritos"}</span>
+            <span>{currentDate || "Revista aberta"}</span>
             <span className="hidden sm:inline opacity-40">•</span>
           </div>
 
@@ -174,7 +174,7 @@ export default function Header() {
               className="text-xs sm:text-sm font-semibold tracking-widest uppercase flex flex-wrap items-center justify-center gap-1.5"
               style={{ color: "var(--text-secondary)", letterSpacing: "0.22em" }}
             >
-              <span>{siteConfig.masthead?.prefix ?? "Arquivo aberto de"}</span>
+              <span>{siteConfig.masthead?.prefix ?? "Revista aberta de"}</span>
               <span
                 className={`inline-block font-bold transition-all duration-300 transform ${isFade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
                   }`}

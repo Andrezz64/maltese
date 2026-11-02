@@ -1,8 +1,8 @@
 ---
 name: "Eternauta Maltese"
 slug: "eternauta-maltese"
-role: "Desenvolvedor e Escritor"
-description: "Desenvolvedor e escritor. Cursando Ciência da Computação desde 2022. Escrevo sobre política, tecnologia e publicação independente."
+role: "Desenvolvedor e escritor"
+description: "Formado em Ciência da Computação, Marxista e Gosto de escrever sobre política, tecnologia e publicação independente."
 avatar: "https://avatars.githubusercontent.com/u/88751248?v=4"
 socials:
   website: "https://www.maltese.app.br"
@@ -17,6 +17,8 @@ Escrever é um hobbie que levo a sério. É o meu espaço para pensar em voz alt
 
 A revista Maltése nasceu dessa convicção: um sistema aberto de publicação independente, feito para quem quer que suas ideias durem mais do que um feed.
 
-Atualmente sou formado e vivo com minha esposa e gata.
+---
+
+Atualmente tenho 23 anos, sou formado e vivo com minha esposa e minha gatinha.
 
 

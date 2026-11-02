@@ -19,6 +19,7 @@ import {
   Trash2,
   Check,
 } from "lucide-react";
+import { SOCIAL_META } from "@/components/SocialIcons";
 import {
   getRepoFileContent,
   listRepoFiles,
@@ -46,8 +47,17 @@ interface AuthorForm {
   websiteUrl: string;
   githubUrl: string;
   twitterUrl: string;
+  blueskyUrl: string;
   linkedinUrl: string;
   instagramUrl: string;
+  youtubeUrl: string;
+  tiktokUrl: string;
+  mastodonUrl: string;
+  threadsUrl: string;
+  telegramUrl: string;
+  facebookUrl: string;
+  substackUrl: string;
+  mediumUrl: string;
   links: AuthorLink[];
   bio: string;
 }
@@ -90,8 +100,17 @@ function emptyForm(defaultName = ""): AuthorForm {
     websiteUrl: "",
     githubUrl: "",
     twitterUrl: "",
+    blueskyUrl: "",
     linkedinUrl: "",
     instagramUrl: "",
+    youtubeUrl: "",
+    tiktokUrl: "",
+    mastodonUrl: "",
+    threadsUrl: "",
+    telegramUrl: "",
+    facebookUrl: "",
+    substackUrl: "",
+    mediumUrl: "",
     links: [],
     bio: "",
   };
@@ -106,14 +125,26 @@ function buildMarkdown(form: AuthorForm): string {
   if (form.description) lines.push(`description: "${q(form.description)}"`);
   if (form.avatar) lines.push(`avatar: "${form.avatar}"`);
 
-  const hasSocials = form.websiteUrl || form.githubUrl || form.twitterUrl || form.linkedinUrl || form.instagramUrl;
+  const hasSocials = form.websiteUrl || form.githubUrl || form.twitterUrl || form.blueskyUrl ||
+    form.linkedinUrl || form.instagramUrl || form.youtubeUrl || form.tiktokUrl ||
+    form.mastodonUrl || form.threadsUrl || form.telegramUrl || form.facebookUrl ||
+    form.substackUrl || form.mediumUrl;
   if (hasSocials) {
     lines.push("socials:");
-    if (form.websiteUrl) lines.push(`  website: "${form.websiteUrl}"`);
-    if (form.githubUrl) lines.push(`  github: "${form.githubUrl}"`);
-    if (form.twitterUrl) lines.push(`  twitter: "${form.twitterUrl}"`);
-    if (form.linkedinUrl) lines.push(`  linkedin: "${form.linkedinUrl}"`);
+    if (form.websiteUrl)   lines.push(`  website: "${form.websiteUrl}"`);
+    if (form.githubUrl)    lines.push(`  github: "${form.githubUrl}"`);
+    if (form.twitterUrl)   lines.push(`  twitter: "${form.twitterUrl}"`);
+    if (form.blueskyUrl)   lines.push(`  bluesky: "${form.blueskyUrl}"`);
+    if (form.linkedinUrl)  lines.push(`  linkedin: "${form.linkedinUrl}"`);
     if (form.instagramUrl) lines.push(`  instagram: "${form.instagramUrl}"`);
+    if (form.youtubeUrl)   lines.push(`  youtube: "${form.youtubeUrl}"`);
+    if (form.tiktokUrl)    lines.push(`  tiktok: "${form.tiktokUrl}"`);
+    if (form.mastodonUrl)  lines.push(`  mastodon: "${form.mastodonUrl}"`);
+    if (form.threadsUrl)   lines.push(`  threads: "${form.threadsUrl}"`);
+    if (form.telegramUrl)  lines.push(`  telegram: "${form.telegramUrl}"`);
+    if (form.facebookUrl)  lines.push(`  facebook: "${form.facebookUrl}"`);
+    if (form.substackUrl)  lines.push(`  substack: "${form.substackUrl}"`);
+    if (form.mediumUrl)    lines.push(`  medium: "${form.mediumUrl}"`);
   }
 
   const validLinks = form.links.filter((l) => l.label && l.url);
@@ -183,8 +214,17 @@ function parseMd(raw: string): AuthorForm {
     websiteUrl: data.socials?.website || "",
     githubUrl: data.socials?.github || "",
     twitterUrl: data.socials?.twitter || "",
+    blueskyUrl: data.socials?.bluesky || "",
     linkedinUrl: data.socials?.linkedin || "",
     instagramUrl: data.socials?.instagram || "",
+    youtubeUrl: data.socials?.youtube || "",
+    tiktokUrl: data.socials?.tiktok || "",
+    mastodonUrl: data.socials?.mastodon || "",
+    threadsUrl: data.socials?.threads || "",
+    telegramUrl: data.socials?.telegram || "",
+    facebookUrl: data.socials?.facebook || "",
+    substackUrl: data.socials?.substack || "",
+    mediumUrl: data.socials?.medium || "",
     links: Array.isArray(data.links)
       ? data.links.filter((l: any) => l.label && l.url)
       : [],
@@ -634,25 +674,41 @@ export default function AuthorPickerPanel({ currentAuthor, onSelect, onClose }: 
               {/* Socials */}
               <div className="space-y-2">
                 <span className="text-[11px] font-semibold uppercase tracking-wide opacity-60 block" style={{ color: "var(--text-secondary)" }}>Redes Sociais</span>
-                {[
-                  { key: "websiteUrl" as const, icon: Globe, placeholder: "https://... (site)" },
-                  { key: "githubUrl" as const, icon: Link2, placeholder: "https://github.com/..." },
-                  { key: "twitterUrl" as const, icon: AtSign, placeholder: "https://x.com/..." },
-                  { key: "linkedinUrl" as const, icon: ExternalLink, placeholder: "https://linkedin.com/..." },
-                  { key: "instagramUrl" as const, icon: ExternalLink, placeholder: "https://instagram.com/..." },
-                ].map(({ key, icon: Icon, placeholder }) => (
-                  <div key={key} className="flex items-center gap-1.5">
-                    <Icon className="w-3.5 h-3.5 shrink-0 opacity-40" style={{ color: "var(--text-secondary)" }} />
-                    <input
-                      type="url"
-                      value={editForm[key]}
-                      onChange={(e) => setField(key, e.target.value)}
-                      placeholder={placeholder}
-                      className="flex-1 px-2.5 py-1.5 rounded-lg border text-xs outline-none transition-all"
-                      style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)", color: "var(--text-primary)" }}
-                    />
-                  </div>
-                ))}
+                {(
+                  [
+                    { key: "websiteUrl",   placeholder: "https://... (site)" },
+                    { key: "githubUrl",    placeholder: "https://github.com/..." },
+                    { key: "twitterUrl",   placeholder: "https://x.com/..." },
+                    { key: "blueskyUrl",   placeholder: "https://bsky.app/profile/..." },
+                    { key: "linkedinUrl",  placeholder: "https://linkedin.com/in/..." },
+                    { key: "instagramUrl", placeholder: "https://instagram.com/..." },
+                    { key: "youtubeUrl",   placeholder: "https://youtube.com/@..." },
+                    { key: "tiktokUrl",    placeholder: "https://tiktok.com/@..." },
+                    { key: "mastodonUrl",  placeholder: "https://mastodon.social/@..." },
+                    { key: "threadsUrl",   placeholder: "https://threads.net/@..." },
+                    { key: "telegramUrl",  placeholder: "https://t.me/..." },
+                    { key: "facebookUrl",  placeholder: "https://facebook.com/..." },
+                    { key: "substackUrl",  placeholder: "https://substack.com/@..." },
+                    { key: "mediumUrl",    placeholder: "https://medium.com/@..." },
+                  ] as { key: keyof AuthorForm; placeholder: string }[]
+                ).map(({ key, placeholder }) => {
+                  const socialKey = key.replace("Url", "") as keyof typeof SOCIAL_META;
+                  const meta = SOCIAL_META[socialKey];
+                  const Icon = meta?.Icon ?? ExternalLink;
+                  return (
+                    <div key={key} className="flex items-center gap-1.5">
+                      <Icon className="w-3.5 h-3.5 shrink-0 opacity-40" />
+                      <input
+                        type="url"
+                        value={editForm[key] as string}
+                        onChange={(e) => setField(key, e.target.value)}
+                        placeholder={placeholder}
+                        className="flex-1 px-2.5 py-1.5 rounded-lg border text-xs outline-none transition-all"
+                        style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)", color: "var(--text-primary)" }}
+                      />
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Bio */}

@@ -13,6 +13,7 @@ import {
   GitHubFileItem,
 } from "@/lib/github";
 import AuthorPickerPanel from "@/components/AuthorPickerPanel";
+import AuthorCardClient from "@/components/AuthorCardClient";
 import {
   Download,
   Copy,
@@ -76,6 +77,7 @@ interface SavedDraftItem {
   tagsInput: string;
   author: string;
   epigraph: string;
+  coverImage: string;
   featured: boolean;
   content: string;
   updatedAt: number;
@@ -101,10 +103,11 @@ export default function GeradorMDPage() {
   const [category, setCategory] = useState("Manifestos");
   const [customCategory, setCustomCategory] = useState("");
   const [tagsInput, setTagsInput] = useState("Insubmissão, Dignidade, Ética, Resistência");
-  const [author, setAuthor] = useState(siteConfig.author || "Maltese");
+  const [author, setAuthor] = useState("");
   const [epigraph, setEpigraph] = useState(
     "A desobediência é a virtude original do homem. Foi através da desobediência que o progresso foi feito. — Oscar Wilde"
   );
+  const [coverImage, setCoverImage] = useState("");
   const [featured, setFeatured] = useState(true);
 
   // --- Post Content State ---
@@ -201,8 +204,9 @@ Dizer **não** é o primeiro gesto de resgate da subjetividade. É a recusa em p
         if (parsed.category) setCategory(parsed.category);
         if (parsed.customCategory) setCustomCategory(parsed.customCategory);
         if (parsed.tagsInput) setTagsInput(parsed.tagsInput);
-        if (parsed.author) setAuthor(parsed.author);
+        if (parsed.author && parsed.author !== "Maltese" && parsed.author !== siteConfig.author) setAuthor(parsed.author);
         if (parsed.epigraph !== undefined) setEpigraph(parsed.epigraph);
+        if (parsed.coverImage !== undefined) setCoverImage(parsed.coverImage);
         if (parsed.featured !== undefined) setFeatured(parsed.featured);
         if (parsed.content !== undefined) setContent(parsed.content);
         if (parsed.updatedAt) setLastSaved(parsed.updatedAt);
@@ -263,6 +267,7 @@ Dizer **não** é o primeiro gesto de resgate da subjetividade. É a recusa em p
         tagsInput,
         author,
         epigraph,
+        coverImage,
         featured,
         content,
         updatedAt: now,
@@ -301,6 +306,7 @@ Dizer **não** é o primeiro gesto de resgate da subjetividade. É a recusa em p
     tagsInput,
     author,
     epigraph,
+    coverImage,
     featured,
     content,
   ]);
@@ -452,6 +458,10 @@ featured: ${featured}
       md += `epigraph: "${escapedEpigraph}"\n`;
     }
 
+    if (coverImage.trim()) {
+      md += `coverImage: "${coverImage.trim()}"\n`;
+    }
+
     md += `author: "${author}"
 ---
 
@@ -459,7 +469,7 @@ ${content.trim()}
 `;
 
     return md;
-  }, [title, slug, date, summary, effectiveCategory, tagsList, readingTime, featured, epigraph, author, content]);
+  }, [title, slug, date, summary, effectiveCategory, tagsList, readingTime, featured, epigraph, coverImage, author, content]);
 
   // Render markdown to HTML live
   const [renderedHtml, setRenderedHtml] = useState("");
@@ -607,6 +617,7 @@ ${content.trim()}
     setTagsInput(draft.tagsInput);
     setAuthor(draft.author);
     setEpigraph(draft.epigraph);
+    setCoverImage(draft.coverImage || "");
     setFeatured(draft.featured);
     setContent(draft.content);
 
@@ -655,6 +666,7 @@ ${content.trim()}
         if (metadata.category) setCategory(metadata.category);
         if (metadata.author) setAuthor(metadata.author);
         if (metadata.epigraph) setEpigraph(metadata.epigraph);
+        if (metadata.coverImage) setCoverImage(metadata.coverImage);
         if (metadata.featured !== undefined) setFeatured(Boolean(metadata.featured));
         if (metadata.tags) {
           setTagsInput(Array.isArray(metadata.tags) ? metadata.tags.join(", ") : metadata.tags);
@@ -697,6 +709,7 @@ ${content.trim()}
       if (metadata.category) setCategory(metadata.category);
       if (metadata.author) setAuthor(metadata.author);
       if (metadata.epigraph) setEpigraph(metadata.epigraph);
+      if (metadata.coverImage) setCoverImage(metadata.coverImage);
       if (metadata.featured !== undefined) setFeatured(Boolean(metadata.featured));
       if (metadata.tags) {
         setTagsInput(Array.isArray(metadata.tags) ? metadata.tags.join(", ") : metadata.tags);
@@ -722,8 +735,9 @@ ${content.trim()}
     setCategory(siteConfig.editorial.defaultCategory || "Ensaios");
     setCustomCategory("");
     setTagsInput("");
-    setAuthor(siteConfig.author || "Maltese");
+    setAuthor("");
     setEpigraph("");
+    setCoverImage("");
     setFeatured(false);
     setContent("## Início do Texto\n\nComece a escrever sua reflexão aqui...");
     setRemoteFileSha(null);
@@ -856,7 +870,7 @@ ${content.trim()}
     }
   };
 
-  const isMetadataComplete = Boolean(title.trim() && summary.trim() && slug.trim());
+  const isMetadataComplete = Boolean(title.trim() && summary.trim() && slug.trim() && author.trim());
 
   return (
     <div
@@ -1417,6 +1431,17 @@ ${content.trim()}
               {previewTab === "rendered" ? (
                 /* TAB 1: RENDERED ARTICLE VIEW */
                 <article className="space-y-6">
+                  {/* Cover image hero */}
+                  {coverImage.trim() && (
+                    <div className="relative w-full overflow-hidden rounded-xl -mx-4 sm:-mx-6" style={{ aspectRatio: "21/9" }}>
+                      <img
+                        src={coverImage}
+                        alt="Capa"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                      />
+                    </div>
+                  )}
                   {/* Article simulated header */}
                   <div className="space-y-3 pb-5 border-b" style={{ borderColor: "var(--border-light)" }}>
                     <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -1447,9 +1472,22 @@ ${content.trim()}
                       {title || "Título do Texto"}
                     </h1>
 
-                    <div className="text-xs font-medium opacity-60">
-                      Por <span style={{ color: "var(--accent-red)" }}>{author || siteConfig.author}</span>
-                    </div>
+                    {/* Author — idêntico ao AuthorCard variant="header" */}
+                    {author.trim() ? (
+                      <AuthorCardClient authorName={author} variant="header" />
+                    ) : (
+                      <div className="flex items-center gap-2 pt-1 opacity-40">
+                        <div
+                          className="w-9 h-9 rounded-full border-2 border-dashed flex items-center justify-center text-xs"
+                          style={{ borderColor: "var(--border-color)" }}
+                        >
+                          ?
+                        </div>
+                        <span className="text-xs italic" style={{ color: "var(--text-muted)" }}>
+                          Autor não selecionado
+                        </span>
+                      </div>
+                    )}
 
                     {/* Summary in preview */}
                     {summary && (
@@ -1503,6 +1541,11 @@ ${content.trim()}
                     className="prose-content transition-all duration-150"
                     dangerouslySetInnerHTML={{ __html: renderedHtml }}
                   />
+
+                  {/* Author footer — idêntico ao AuthorCard variant="footer" */}
+                  {author.trim() && (
+                    <AuthorCardClient authorName={author} variant="footer" />
+                  )}
                 </article>
               ) : (
                 /* TAB 2: RAW CODE OUTPUT VIEW */
@@ -2645,21 +2688,32 @@ ${content.trim()}
 
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--text-secondary)" }}>
-                    Autor(a)
+                    Autor(a) <span style={{ color: "var(--accent-red)" }}>*</span>
                   </label>
-                  {/* Author pill + picker trigger */}
+                  {/* Read-only pill — edited only via AuthorPickerPanel */}
                   <div className="flex gap-1.5">
-                    <input
-                      type="text"
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
-                      className="flex-1 min-w-0 px-3 py-2 rounded-lg border text-xs transition-all focus:outline-hidden"
+                    <div
+                      className="flex-1 min-w-0 flex items-center px-3 py-2 rounded-lg border text-xs gap-2"
                       style={{
-                        backgroundColor: "var(--bg-primary)",
-                        borderColor: "var(--border-color)",
-                        color: "var(--text-primary)",
+                        backgroundColor: "var(--bg-secondary)",
+                        borderColor: author.trim() ? "var(--border-color)" : "var(--accent-red)",
+                        color: author.trim() ? "var(--text-primary)" : "var(--text-muted)",
                       }}
-                    />
+                    >
+                      {author.trim() ? (
+                        <>
+                          <span
+                            className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center font-bold text-[10px]"
+                            style={{ backgroundColor: "var(--accent-red)", color: "#fff" }}
+                          >
+                            {author.trim().charAt(0).toUpperCase()}
+                          </span>
+                          <span className="truncate font-medium">{author}</span>
+                        </>
+                      ) : (
+                        <span className="italic opacity-60">Nenhum autor selecionado</span>
+                      )}
+                    </div>
                     <button
                       type="button"
                       onClick={() => { setIsMetadataMenuOpen(false); setIsAuthorPanelOpen(true); }}
@@ -2672,9 +2726,14 @@ ${content.trim()}
                       title="Selecionar ou criar autor"
                     >
                       <Users className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Gerenciar</span>
+                      <span className="hidden sm:inline">Selecionar</span>
                     </button>
                   </div>
+                  {!author.trim() && (
+                    <p className="text-[11px] mt-1.5 flex items-center gap-1" style={{ color: "var(--accent-red)" }}>
+                      <span>⚠</span> Selecione um autor para publicar
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -2732,8 +2791,39 @@ ${content.trim()}
                   />
                 </div>
 
-                {/* Featured toggle */}
-                <div
+                {/* Cover image */}
+                <div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--text-secondary)" }}>
+                    Imagem de Capa — URL (Opcional)
+                  </label>
+                  <input
+                    type="url"
+                    value={coverImage}
+                    onChange={(e) => setCoverImage(e.target.value)}
+                    placeholder="https://exemplo.com/imagem.jpg"
+                    className="w-full px-3.5 py-2 rounded-lg border text-xs transition-all focus:outline-hidden"
+                    style={{
+                      backgroundColor: "var(--bg-primary)",
+                      borderColor: "var(--border-color)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                  {coverImage.trim() && (
+                    <div className="mt-2 relative w-full overflow-hidden rounded-lg border" style={{ borderColor: "var(--border-light)", aspectRatio: "21/9" }}>
+                      <img
+                        src={coverImage}
+                        alt="Preview da capa"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                      />
+                    </div>
+                  )}
+                  <p className="text-[11px] mt-1 opacity-50" style={{ color: "var(--text-muted)" }}>
+                    Cole uma URL de qualquer serviço — GitHub, Imgur, Cloudinary, etc.
+                  </p>
+                </div>
+
+                {/* Featured toggle */}                <div
                   className="p-3 rounded-xl border flex items-center gap-3"
                   style={{
                     backgroundColor: "var(--bg-primary)",
@@ -3124,6 +3214,21 @@ ${content.trim()}
                 >
                   {summary || "Escreva uma síntese ou resumo para exibir no card."}
                 </p>
+
+                {/* Author strip */}
+                {author.trim() && (
+                  <div className="flex items-center gap-2 mb-4 pb-3 border-b" style={{ borderColor: "var(--border-light)" }}>
+                    <div
+                      className="w-6 h-6 rounded-full shrink-0 flex items-center justify-center font-bold text-[11px]"
+                      style={{ backgroundColor: "var(--accent-red)", color: "#fff" }}
+                    >
+                      {author.trim().charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>
+                      {author}
+                    </span>
+                  </div>
+                )}
 
                 {/* Footer: Tags & Read Link */}
                 <div

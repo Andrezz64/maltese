@@ -26,7 +26,7 @@ export default function Footer() {
               className="text-lg font-bold font-serif tracking-tight flex items-center gap-2"
               style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
             >
-              <span>Arquivo {siteConfig.title.toUpperCase()}</span>
+              <span>Revista {siteConfig.title.toUpperCase()}</span>
             </h3>
             <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               {siteConfig.description}
@@ -36,7 +36,7 @@ export default function Footer() {
           {/* Column 2: Navigation */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--accent-red)" }}>
-              Navegação do Caderno
+              Navegação da revista
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
@@ -46,12 +46,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/textos" className="hover:underline transition-all" style={{ color: "var(--text-secondary)" }}>
-                  Índice Geral de Ensaios
+                  Índice de Publicações
                 </Link>
               </li>
               <li>
                 <Link href="/sobre" className="hover:underline transition-all" style={{ color: "var(--text-secondary)" }}>
-                  Manifesto & Sobre o Autor
+                  Manifesto
                 </Link>
               </li>
               <li>
