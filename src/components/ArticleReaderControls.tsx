@@ -63,7 +63,8 @@ export default function ArticleReaderControls({ post }: ArticleReaderControlsPro
 
   const handleCopyCitation = () => {
     const year = post.date.split("-")[0] || "2026";
-    const citation = `MALTESE. "${post.title}". Caderno de Escritos, ${year}. Disponível em: <${window.location.href}>.`;
+    const authorName = (post.author || "MALTESE").toUpperCase();
+    const citation = `${authorName}. "${post.title}". Caderno de Escritos, ${year}. Disponível em: <${window.location.href}>.`;
     navigator.clipboard.writeText(citation);
     setCopiedCitation(true);
     setTimeout(() => setCopiedCitation(false), 2500);

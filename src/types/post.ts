@@ -11,7 +11,14 @@ export interface PostMeta {
   author?: string;
 }
 
+export interface TocItem {
+  id: string;
+  text: string;
+  level: number;
+}
+
 export interface Post extends PostMeta {
   content: string;
   htmlContent: string;
+  toc?: TocItem[];
 }

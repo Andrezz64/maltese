@@ -1,16 +1,11 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
-import { marked } from "marked";
+import matter from "@/lib/matter";
+import { renderMarkdownWithToc } from "./markdown";
 import { Post, PostMeta } from "@/types/post";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
-// Configure marked options
-marked.setOptions({
-  gfm: true,
-  breaks: true,
-});
 
 function calculateReadingTime(text: string): string {
   const wordsPerMinute = 200;
@@ -86,7 +81,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
-    const htmlContent = await marked.parse(content);
+    const { html: htmlContent, toc } = await renderMarkdownWithToc(content);
     const readingTime = data.readingTime || calculateReadingTime(content);
 
     return {
@@ -102,6 +97,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       author: data.author || "Maltese",
       content,
       htmlContent,
+      toc,
     };
   } catch (error) {
     console.error(`Error loading post ${slug}:`, error);

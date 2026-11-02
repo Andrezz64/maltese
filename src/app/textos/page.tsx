@@ -21,7 +21,7 @@ export default function TextosPage() {
           className="text-3xl sm:text-4xl font-extrabold font-serif tracking-tight"
           style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
         >
-          Arquivo de Escritos & Reflexões
+          Arquivo de textos
         </h1>
         <p
           className="text-sm sm:text-base leading-relaxed"

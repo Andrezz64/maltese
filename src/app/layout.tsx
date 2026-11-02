@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import siteConfig from "@site-config";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -35,36 +36,34 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Maltese — Caderno de Escritos & Crítica",
-    default: "Maltese — Caderno de Escritos, Crítica & Liberdade",
+    template: `%s | ${siteConfig.title} — ${siteConfig.tagline}`,
+    default: `${siteConfig.title} — ${siteConfig.tagline}`,
   },
-  description:
-    "Página autoral dedicada a ensaios, manifestos, pensamento crítico, filosofia social e reflexões sobre a liberdade concreta e a emancipação humana.",
+  description: siteConfig.description,
   keywords: [
     "Escritos",
     "Ensaios",
     "Crítica Social",
-    "Socialismo Libertário",
     "Filosofia",
     "Manifesto",
     "Autonomia",
-    "Maltese",
+    siteConfig.title,
+    siteConfig.author,
   ],
-  authors: [{ name: "Maltese" }],
-  creator: "Maltese",
+  authors: [{ name: siteConfig.author }],
+  creator: siteConfig.author,
   openGraph: {
     type: "website",
-    locale: "pt_BR",
-    url: "https://maltese-escritos.vercel.app",
-    title: "Caderno Maltese",
-    description:
-      "Caderno independente de ensaios, manifestos e pensamento crítico. Sem anúncios, sem algoritmos, sem banco de dados.",
-    siteName: "Maltese — Escritos",
+    locale: siteConfig.language,
+    url: siteConfig.url,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    siteName: `${siteConfig.title} — Escritos`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maltese — Caderno de Escritos, Crítica & Liberdade",
-    description: "Caderno independente de ensaios, manifestos e pensamento crítico.",
+    title: `${siteConfig.title} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
   },
 };
 
@@ -82,7 +81,7 @@ export default function RootLayout({
       <body className="font-sans antialiased selection:bg-[#a82020] selection:text-white min-h-screen flex flex-col">
         <ThemeProvider>
           <Header />
-          <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          <main className="flex-1 w-full max-w-7xl 2xl:max-w-[1750px] mx-auto px-3 sm:px-6 lg:px-8 py-5 md:py-7">
             {children}
           </main>
           <Footer />
