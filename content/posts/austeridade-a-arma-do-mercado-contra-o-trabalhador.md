@@ -5,12 +5,11 @@ date: "2026-11-02"
 summary: "Como um país de tamanho potencial pode servir somente como fazenda de exportações? Entenda como o mercado financeiro rentista te induz ao auto-sabotamento."
 category: "Artigo de opnião"
 tags: ["Economia","Política","Assuntos em alta","Brasil","Lula4"]
-readingTime: "14 min de leitura"
+readingTime: "13 min de leitura"
 featured: false
+epigraph: "A desobediência é a virtude original do homem. Foi através da desobediência que o progresso foi feito. — Oscar Wilde"
 author: "eternauta-maltese"
 ---
-
-
 
 A discussão sobre o papel do Estado na economia brasileira costuma ser reduzida a um falso dilema contábil: ou se gasta com responsabilidade, ou o país quebra. No entanto, a política fiscal nunca foi apenas uma questão de contabilidade doméstica; ela é o principal instrumento de disputa distributiva e de projeto de país. Compreender os rumos da economia nacional exige olhar para além dos dogmas ortodoxos e entender como o controle fiscal tem funcionado como uma coleira que trava o desenvolvimento soberano.
 
@@ -126,10 +125,6 @@ Sob a perspectiva da Economia Política e do Marxismo:
 2. **Juros como Disputa de Classe:** A experiência turca demonstrou como a heterodoxia reacionária de Erdoğan tentou usar o crédito barato para inflar setores imobiliários e amigos do regime sem construir capacidade produtiva soberana.
 
 Portanto, instrumentalizar o "Caso Turquia" para defender a manutenção de juros reais na casa dos dois dígitos no Brasil é uma falácia. O debate real não é sobre escolher entre a "irresponsabilidade voluntarista" de Erdoğan e a "austeridade permanente" da Faria Lima, mas sim sobre construir uma política macroeconômica que utilize a força do Estado, as reservas internacionais e o crédito público para reindustrializar o país sem subordinar o trabalhador nem ao rentismo financeiro, nem ao caos inflacionário.
-
-Aqui está a conclusão para fechar o artigo com chave de ouro, seguida da lista de referências devidamente revisada, padronizada e expandida com todas as obras e relatórios citados ao longo do texto.
-
----
 
 ## Conclusão: A Escolha entre o Rentismo e a Soberania
 
