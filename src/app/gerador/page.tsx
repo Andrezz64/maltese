@@ -94,37 +94,20 @@ interface GitAuthConfig {
 
 export default function GeradorMDPage() {
   // --- Post Metadata State ---
-  const [title, setTitle] = useState("O Elogio da Insubmissão: Notas sobre a Dignidade do Não");
-  const [slug, setSlug] = useState("elogio-da-insubmissao");
-  const [date, setDate] = useState("2026-03-28");
-  const [summary, setSummary] = useState(
-    "Por que a capacidade de dizer 'não' às injustiças cotidianas é o fundamento inicial de qualquer transformação social profunda."
-  );
-  const [category, setCategory] = useState("Manifestos");
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [date, setDate] = useState("");
+  const [summary, setSummary] = useState("");
+  const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
-  const [tagsInput, setTagsInput] = useState("Insubmissão, Dignidade, Ética, Resistência");
+  const [tagsInput, setTagsInput] = useState("");
   const [author, setAuthor] = useState("");
-  const [epigraph, setEpigraph] = useState(
-    "A desobediência é a virtude original do homem. Foi através da desobediência que o progresso foi feito. — Oscar Wilde"
-  );
+  const [epigraph, setEpigraph] = useState("");
   const [coverImage, setCoverImage] = useState("");
-  const [featured, setFeatured] = useState(true);
+  const [featured, setFeatured] = useState(false);
 
   // --- Post Content State ---
-  const [content, setContent] = useState(`## A Tirania do Consentimento Silencioso
-
-A mais eficiente forma de tirania não é aquela que se impõe pela força bruta dos canhões, mas a que consegue colonizar o imaginário a ponto de transformar a obediência cega em virtude moral. Quando as pessoas se acostumam com o inaceitável, a injustiça ganha foro de normalidade.
-
-Dizer **não** é o primeiro gesto de resgate da subjetividade. É a recusa em participar da engrenagem que tritura a dignidade alheia para alimentar privilégios concentrados.
-
-### As Três Dimensões da Insubmissão Ética
-
-1. **A recusa da resignação:** Não aceitar a miséria material e espiritual como um dado da natureza.
-2. **A fidelidade à verdade:** Desmascarar o vocabulário cínico que chama exploração de 'oportunidade' e censura de 'harmonia'.
-3. **A construção do comum:** A insubmissão solitária pode ser heroica, mas apenas a insubmissão organizada e fraterna é capaz de erguer novos mundos.
-
-> "A história não é um trilho pré-determinado; ela é o barro moldado pelas mãos daqueles que ousaram não se ajoelhar."
-`);
+  const [content, setContent] = useState(`### Digite aqui suas ideias...`);
 
   // --- View Mode & Fullscreen State ---
   const [viewMode, setViewMode] = useState<"split" | "editor" | "preview">("split");

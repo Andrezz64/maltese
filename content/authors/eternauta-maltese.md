@@ -1,12 +1,11 @@
 ---
-name: "Eternauta Maltese"
+name: "Eternauta Maltése"
 slug: "eternauta-maltese"
 role: "Desenvolvedor e escritor"
 description: "Formado em Ciência da Computação, Marxista e Gosto de escrever sobre política, tecnologia e publicação independente."
 avatar: "https://avatars.githubusercontent.com/u/88751248?v=4"
 socials:
   website: "https://www.maltese.app.br"
-  github: "https://github.com/Andrezz64"
   twitter: "https://x.com/Flamunista_"
 
 ---

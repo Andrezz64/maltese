@@ -5,9 +5,8 @@ date: "2026-11-02"
 summary: "Como um país de tamanho potencial pode servir somente como fazenda de exportações? Entenda como o mercado financeiro rentista te induz ao auto-sabotamento."
 category: "Artigo de opnião"
 tags: ["Economia","Política","Assuntos em alta","Brasil","Lula4"]
-readingTime: "13 min de leitura"
+readingTime: "14 min de leitura"
 featured: false
-epigraph: "A desobediência é a virtude original do homem. Foi através da desobediência que o progresso foi feito. — Oscar Wilde"
 author: "eternauta-maltese"
 ---
 

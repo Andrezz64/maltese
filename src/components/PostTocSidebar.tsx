@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ListOrdered, ChevronRight, Menu, X, ArrowUp } from "lucide-react";
+import { ListOrdered, ChevronRight, ArrowUp } from "lucide-react";
 import { TocItem } from "@/types/post";
 
 interface PostTocSidebarProps {
@@ -10,7 +10,6 @@ interface PostTocSidebarProps {
 }
 
 export default function PostTocSidebar({ toc, postTitle }: PostTocSidebarProps) {
-  const [isOpenMobile, setIsOpenMobile] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
 
   // Observa o scroll para destacar o tópico ativo
@@ -77,44 +76,18 @@ export default function PostTocSidebar({ toc, postTitle }: PostTocSidebarProps) 
         // ignore
       }
     }
-    setIsOpenMobile(false);
+    // mobile panel is controlled by ArticleReaderControls, nothing to close here
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    setIsOpenMobile(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <>
-      {/* Botão de Toggle Mobile (idêntico ao da documentação) */}
-      <div className="lg:hidden w-full mb-4 no-print">
-        <button
-          type="button"
-          onClick={() => setIsOpenMobile(!isOpenMobile)}
-          className="w-full flex items-center justify-between px-4 py-3 rounded-xl border text-[0.875rem] font-semibold shadow-xs transition-colors"
-          style={{
-            backgroundColor: "var(--bg-card)",
-            borderColor: "var(--border-color)",
-            color: "var(--text-primary)",
-          }}
-        >
-          <div className="flex items-center gap-2.5">
-            <ListOrdered className="w-4 h-4 text-[var(--accent-red)]" />
-            <span>Sumário do Texto ({toc.length} seções)</span>
-          </div>
-          {isOpenMobile ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-        </button>
-      </div>
-
-      {/* Sidebar Container */}
+      {/* Sidebar Container — desktop only, mobile handled by ArticleReaderControls */}
       <aside
-        className={`no-print lg:block ${
-          isOpenMobile ? "block" : "hidden"
-        } w-full lg:w-80 xl:w-88 shrink-0 lg:sticky lg:top-4 lg:self-start z-30 transition-all`}
+        className={`no-print hidden lg:block w-full lg:w-80 xl:w-88 shrink-0 lg:sticky lg:top-4 lg:self-start z-30`}
       >
         <div
           className="p-4 sm:p-5 rounded-2xl border shadow-xs space-y-4 max-h-[calc(100vh-2.5rem)] flex flex-col"

@@ -58,7 +58,7 @@ export default function AutoresPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {authors.map((author) => {
-            const count = postCountByAuthor(author.name);
+            const count = postCountByAuthor(author.slug);
             const initial = author.name.charAt(0).toUpperCase();
 
             return (
@@ -125,10 +125,10 @@ export default function AutoresPage() {
                 <div className="flex items-center justify-between pt-3 border-t text-xs" style={{ borderColor: "var(--border-light)" }}>
                   <span className="font-semibold" style={{ color: "var(--text-muted)" }}>
                     {count === 0
-                      ? "Sem textos"
+                      ? "Sem publicações"
                       : count === 1
-                      ? "1 texto"
-                      : `${count} textos`}
+                      ? "1 Publicação"
+                      : `${count} Publicações`}
                   </span>
 
                   <div className="flex items-center gap-2">

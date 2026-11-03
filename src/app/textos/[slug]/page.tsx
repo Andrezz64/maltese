@@ -216,7 +216,7 @@ async function PostDetailContent({ paramsPromise }: { paramsPromise: Promise<{ s
           }`}
         >
           {/* Reader Controls Toolbar (Sticky top-4) */}
-          <ArticleReaderControls post={post} />
+          <ArticleReaderControls post={post} toc={post.toc} />
 
           {/* Main Post Markdown Content with dynamic reader font size */}
           <ArticleContent htmlContent={post.htmlContent} />
