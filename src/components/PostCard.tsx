@@ -10,6 +10,15 @@ interface PostCardProps {
   featured?: boolean;
 }
 
+/** Converte slug ou string livre para nome legível: "eternauta-maltese" → "Eternauta Maltese" */
+function formatAuthorName(raw: string): string {
+  return raw
+    .replace(/-/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 export default function PostCard({ post, featured = false }: PostCardProps) {
   const [isSaved, setIsSaved] = useState(false);
 
@@ -59,7 +68,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
 
   return (
     <article
-      className={`group relative rounded-xl border transition-all duration-300 hover:shadow-md ${
+      className={`group relative rounded-xl border transition-all duration-300 hover:shadow-md overflow-hidden ${
         featured
           ? "p-6 sm:p-8 bg-[var(--bg-card)] border-[var(--border-color)]"
           : "p-5 sm:p-6 bg-[var(--bg-card)] border-[var(--border-color)]"
@@ -69,6 +78,18 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
         borderColor: "var(--border-color)",
       }}
     >
+      {/* Cover image */}
+      {post.coverImage && (
+        <Link href={`/textos/${post.slug}`} className="block mb-4">
+          <div className="overflow-hidden rounded-xl w-full" style={{ aspectRatio: "16/9" }}>
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        </Link>
+      )}
       {/* Top meta bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs">
         <div className="flex items-center gap-2">
@@ -122,7 +143,7 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
 
       {/* Summary with larger font size */}
       <p
-        className={`leading-relaxed mb-4 ${
+        className={`leading-relaxed mb-3 ${
           featured ? "text-base sm:text-lg md:text-xl font-normal" : "text-sm sm:text-base font-normal"
         }`}
         style={{
@@ -132,6 +153,13 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
       >
         {post.summary}
       </p>
+
+      {/* Author */}
+      {post.author && (
+        <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
+          Por {formatAuthorName(post.author)}
+        </p>
+      )}
 
       {/* Footer: Tags & Read Link */}
       <div className="pt-3 border-t flex flex-wrap items-center justify-between gap-3 text-xs" style={{ borderColor: "var(--border-light)" }}>

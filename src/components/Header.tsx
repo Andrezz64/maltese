@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Sun, Moon, Coffee, BookmarkCheck, Download } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import HowToPublishModal from "./HowToPublishModal";
+import siteConfig from "@site-config";
 
 export default function Header() {
   const pathname = usePathname();
@@ -14,7 +15,7 @@ export default function Header() {
   const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
 
-  const rotatingWords = [
+  const rotatingWords = siteConfig.masthead?.rotatingWords ?? [
     "Ensaios",
     "Manifestos",
     "Crônicas",
@@ -83,9 +84,11 @@ export default function Header() {
   }, [pathname]);
 
   const navLinks = [
-    { href: "/", label: "Caderno Principal" },
-    { href: "/textos", label: "Arquivo de Textos" },
-    { href: "/sobre", label: "Manifesto & Sobre" },
+    { href: "/", label: "Descubra" },
+    { href: "/textos", label: "Publicações" },
+    { href: "/autores", label: "Autores" },
+    { href: "/docs", label: "Documentação" },
+    { href: "/sobre", label: "Manifesto" },
   ];
 
   return (
@@ -95,7 +98,7 @@ export default function Header() {
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-2 border-b flex flex-wrap items-center justify-between text-xs tracking-wider uppercase font-medium" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: "var(--accent-red)" }}></span>
-            <span>{currentDate || "Caderno de Escritos"}</span>
+            <span>{currentDate || "Revista aberta"}</span>
             <span className="hidden sm:inline opacity-40">•</span>
           </div>
 
@@ -161,7 +164,7 @@ export default function Header() {
               className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight"
               style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
             >
-              Maltese
+              {siteConfig.title}
               <span className="inline-block transition-transform duration-300 group-hover:scale-125" style={{ color: "var(--accent-red)" }}>.</span>
             </h1>
           </Link>
@@ -171,7 +174,7 @@ export default function Header() {
               className="text-xs sm:text-sm font-semibold tracking-widest uppercase flex flex-wrap items-center justify-center gap-1.5"
               style={{ color: "var(--text-secondary)", letterSpacing: "0.22em" }}
             >
-              <span>Caderno aberto de</span>
+              <span>{siteConfig.masthead?.prefix ?? "Revista aberta de"}</span>
               <span
                 className={`inline-block font-bold transition-all duration-300 transform ${isFade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
                   }`}
@@ -192,7 +195,7 @@ export default function Header() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto py-3">
             <div className="flex items-center space-x-1 sm:space-x-6">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                 return (
                   <Link
                     key={link.href}
@@ -219,7 +222,7 @@ export default function Header() {
             {/* Gerador de MD button */}
             <Link
               href="/gerador"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-wider transition-all border shadow-xs hover:scale-102"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-wider transition-all border shadow-xs hover:scale-102 ml-2"
               style={{
                 backgroundColor: "var(--accent-red-light)",
                 borderColor: "var(--accent-red)",
@@ -228,7 +231,7 @@ export default function Header() {
               title="Gerador de arquivos Markdown prontos para download"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Gerador de MD</span>
+              <span>Editor</span>
             </Link>
           </div>
         </nav>

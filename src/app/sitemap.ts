@@ -1,36 +1,55 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
+import { getAllAuthors } from "@/lib/authors";
+import siteConfig from "@site-config";
+
+// Remove trailing slash to avoid double slashes
+const base = siteConfig.url.replace(/\/$/, "");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = "https://maltese-escritos.vercel.app";
   const posts = getAllPosts();
+  const authors = getAllAuthors();
 
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${siteUrl}/textos/${post.slug}`,
+    url: `${base}/textos/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "monthly",
-    priority: 0.8,
+    priority: post.featured ? 0.9 : 0.8,
+  }));
+
+  const authorEntries: MetadataRoute.Sitemap = authors.map((author) => ({
+    url: `${base}/autores/${author.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
   }));
 
   return [
     {
-      url: siteUrl,
+      url: base,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
-      url: `${siteUrl}/textos`,
+      url: `${base}/textos`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/sobre`,
+      url: `${base}/autores`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/sobre`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.6,
     },
     ...postEntries,
+    ...authorEntries,
   ];
 }

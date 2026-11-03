@@ -151,6 +151,25 @@ html[data-fontsize="larger"], [data-fontsize="larger"] {
   margin-bottom: 0.6rem;
 }
 
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  scroll-margin-top: 5.5rem;
+}
+
+.prose-content h1 {
+  font-family: var(--font-serif-title, serif);
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.5rem;
+}
+
 .prose-content h2 {
   font-family: var(--font-serif-title, serif);
   font-size: 1.875rem;
@@ -234,6 +253,113 @@ html[data-fontsize="larger"], [data-fontsize="larger"] {
   border-radius: 4px;
   font-size: 0.9em;
   font-family: var(--font-mono, monospace);
+}
+
+/* Code blocks (pre) */
+.prose-content pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.prose-content pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: inherit;
+  font-size: inherit;
+  border: none !important;
+}
+
+/* Inline code */
+.prose-content code:not(pre code) {
+  background-color: var(--code-bg);
+  color: var(--accent-red);
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.88em;
+  font-family: var(--font-mono, monospace);
+  border: 1px solid var(--border-light);
+  font-weight: 500;
+}
+
+/* Links in content */
+.prose-content a {
+  color: var(--accent-red);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  transition: opacity 0.2s ease;
+}
+
+.prose-content a:hover {
+  opacity: 0.8;
+}
+
+/* Tables in content */
+.prose-content table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.92rem;
+}
+
+.prose-content th {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--border-color);
+  font-family: var(--font-serif-title, serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.prose-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.prose-content tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-content tr:nth-child(even) td {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Headers in content */
+.prose-content h1 {
+  font-family: var(--font-serif-title, serif);
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.prose-content h4 {
+  font-family: var(--font-serif-title, serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 /* Classical typographic ornaments */

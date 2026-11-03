@@ -6,6 +6,14 @@ import { Search, X, Filter, Bookmark } from "lucide-react";
 import { PostMeta } from "@/types/post";
 import PostCard from "./PostCard";
 
+function formatAuthorName(raw: string): string {
+  return raw
+    .replace(/-/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 interface SearchAndFilterProps {
   initialPosts: PostMeta[];
   categories: { name: string; count: number }[];
@@ -25,8 +33,20 @@ export default function SearchAndFilter({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(urlCategory || "all");
   const [selectedTag, setSelectedTag] = useState<string | null>(urlTag || null);
+  const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
   const [onlySaved, setOnlySaved] = useState(urlFiltro === "salvos");
   const [savedSlugs, setSavedSlugs] = useState<string[]>([]);
+
+  // Derive unique authors from posts
+  const authors = useMemo(() => {
+    const map = new Map<string, number>();
+    initialPosts.forEach((p) => {
+      if (p.author) map.set(p.author, (map.get(p.author) || 0) + 1);
+    });
+    return Array.from(map.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [initialPosts]);
 
   useEffect(() => {
     if (urlCategory) setSelectedCategory(urlCategory);
@@ -62,6 +82,11 @@ export default function SearchAndFilter({
         return false;
       }
 
+      // Author filter
+      if (selectedAuthor && post.author !== selectedAuthor) {
+        return false;
+      }
+
       // Search Query filter
       if (searchQuery.trim() !== "") {
         const q = searchQuery.toLowerCase();
@@ -69,24 +94,26 @@ export default function SearchAndFilter({
         const matchesSummary = post.summary.toLowerCase().includes(q);
         const matchesTag = post.tags.some((t) => t.toLowerCase().includes(q));
         const matchesCategory = post.category.toLowerCase().includes(q);
+        const matchesAuthor = (post.author || "").toLowerCase().includes(q);
 
-        if (!matchesTitle && !matchesSummary && !matchesTag && !matchesCategory) {
+        if (!matchesTitle && !matchesSummary && !matchesTag && !matchesCategory && !matchesAuthor) {
           return false;
         }
       }
 
       return true;
     });
-  }, [initialPosts, searchQuery, selectedCategory, selectedTag, onlySaved, savedSlugs]);
+  }, [initialPosts, searchQuery, selectedCategory, selectedTag, selectedAuthor, onlySaved, savedSlugs]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedCategory("all");
     setSelectedTag(null);
+    setSelectedAuthor(null);
     setOnlySaved(false);
   };
 
-  const hasActiveFilters = searchQuery !== "" || selectedCategory !== "all" || selectedTag !== null || onlySaved;
+  const hasActiveFilters = searchQuery !== "" || selectedCategory !== "all" || selectedTag !== null || selectedAuthor !== null || onlySaved;
 
   return (
     <div className="space-y-8">
@@ -185,6 +212,30 @@ export default function SearchAndFilter({
                   }`}
                 >
                   #{t.name}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Author pills */}
+        {authors.length > 1 && (
+          <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+            <span className="text-[11px] font-semibold opacity-60 mr-1">Autores:</span>
+            {authors.map((a) => {
+              const isSelected = selectedAuthor === a.name;
+              return (
+                <button
+                  key={a.name}
+                  onClick={() => setSelectedAuthor(isSelected ? null : a.name)}
+                  className={`px-2.5 py-0.5 rounded-full text-[11px] font-medium transition-all ${
+                    isSelected
+                      ? "bg-[var(--accent-red)] text-white"
+                      : "bg-[var(--badge-bg)] text-[var(--text-muted)] hover:opacity-100"
+                  }`}
+                >
+                  {formatAuthorName(a.name)}
+                  <span className="opacity-60 ml-1">({a.count})</span>
                 </button>
               );
             })}

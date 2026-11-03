@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUp, BookOpen, Heart, Shield } from "lucide-react";
+import siteConfig from "@site-config";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -25,17 +26,17 @@ export default function Footer() {
               className="text-lg font-bold font-serif tracking-tight flex items-center gap-2"
               style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
             >
-              <span>CADERNO MALTESE</span>
+              <span>Revista {siteConfig.title.toUpperCase()}</span>
             </h3>
             <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-              Um espaço independente dedicado à reflexão crítica, à defesa intransigente da autonomia e ao resgate da palavra como força de transformação social.
+              {siteConfig.description}
             </p>
           </div>
 
           {/* Column 2: Navigation */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--accent-red)" }}>
-              Navegação do Caderno
+              Navegação da revista
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
@@ -45,12 +46,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/textos" className="hover:underline transition-all" style={{ color: "var(--text-secondary)" }}>
-                  Índice Geral de Ensaios
+                  Índice de Publicações
                 </Link>
               </li>
               <li>
                 <Link href="/sobre" className="hover:underline transition-all" style={{ color: "var(--text-secondary)" }}>
-                  Manifesto & Sobre o Autor
+                  Manifesto
+                </Link>
+              </li>
+              <li>
+                <Link href="/docs" className="hover:underline transition-all font-semibold" style={{ color: "var(--accent-red)" }}>
+                  Documentação & Manuais
                 </Link>
               </li>
             </ul>
@@ -81,7 +87,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs gap-4" style={{ color: "var(--text-muted)" }}>
           <div className="flex items-center gap-2 text-center sm:text-left">
-            <span>Copyleft <strong>(ɔ) 2026 Maltese</strong></span>
+            <span>Copyleft <strong>(ɔ) 2026 {siteConfig.author}</strong></span>
             <span>•</span>
             <span>Distribuição Livre & Irrestrita</span>
           </div>

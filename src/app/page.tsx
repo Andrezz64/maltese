@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen, Feather, Flame, Compass } from "lucide-react";
 import { getAllPosts, getAllCategories } from "@/lib/posts";
 import PostCard from "@/components/PostCard";
+import siteConfig from "@site-config";
 
 export default function HomePage() {
   const posts = getAllPosts();
@@ -25,21 +26,21 @@ export default function HomePage() {
         <div className="max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider" style={{ backgroundColor: "var(--accent-red-light)", color: "var(--accent-red)" }}>
             <Flame className="w-3.5 h-3.5" />
-            <span>Tribuna Livre • Pensamento Crítico</span>
+            <span>{siteConfig.hero.badge}</span>
           </div>
 
           <h2
             className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight"
             style={{ fontFamily: "var(--font-serif-title)", color: "var(--text-primary)" }}
           >
-            A palavra como instrumento de autonomia e emancipação.
+            {siteConfig.hero.title}
           </h2>
 
           <p
             className="text-base sm:text-lg leading-relaxed max-w-2xl"
             style={{ color: "var(--text-secondary)", fontFamily: "var(--font-serif-body)" }}
           >
-            Este caderno reúne ensaios, manifestos e apontamentos sobre a liberdade concreta, o combate à alienação e a construção de laços solidários. Sem algoritmos de retenção, sem publicidade intrusiva, inteiramente livre.
+            {siteConfig.hero.description}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-3 justify-center sm:justify-start">
@@ -56,7 +57,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              href="/sobre"
+              href="/docs"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold border transition-all hover:bg-black/5 dark:hover:bg-white/5"
               style={{
                 borderColor: "var(--border-color)",
@@ -64,7 +65,7 @@ export default function HomePage() {
               }}
             >
               <Compass className="w-4 h-4" />
-              <span>Manifesto do Caderno</span>
+              <span>Documentação</span>
             </Link>
           </div>
         </div>
@@ -86,7 +87,7 @@ export default function HomePage() {
             Nenhum texto publicado ainda
           </h3>
           <p className="text-sm max-w-md mx-auto" style={{ color: "var(--text-secondary)", fontFamily: "var(--font-serif-body)" }}>
-            O caderno está pronto para receber suas reflexões. Utilize o Gerador de MD para redigir e baixar seu primeiro arquivo!
+            A revista está pronta para receber suas reflexões. Utilize o Gerador de MD para redigir e baixar seu primeiro arquivo!
           </p>
           <div className="pt-2">
             <Link
@@ -162,7 +163,7 @@ export default function HomePage() {
             <h3 className="text-sm font-bold uppercase tracking-widest" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif-title)" }}>
               Outros Escritos & Fragmentos
             </h3>
-            <span className="text-xs opacity-70">Arquivo Cronológico</span>
+            <span className="text-xs opacity-70">Publicações Cronológicas</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -174,20 +175,24 @@ export default function HomePage() {
       )}
 
       {/* Classical Philosophical Quote Banner */}
-      <section
-        className="text-center p-8 sm:p-12 rounded-2xl border space-y-3"
-        style={{
-          backgroundColor: "var(--quote-bg)",
-          borderColor: "var(--border-color)",
-        }}
-      >
-        <div className="text-2xl sm:text-3xl font-serif italic max-w-2xl mx-auto leading-relaxed" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif-body)" }}>
-          &ldquo;O único herói autêntico é o herói coletivo, nunca o homem solitário. Nenhum ser humano se salva sozinho; a coragem só ganha sentido na solidariedade.&rdquo;
-        </div>
-        <p className="text-xs uppercase font-bold tracking-widest opacity-70" style={{ color: "var(--accent-red)" }}>
-          — Héctor Germán Oesterheld (O Eternauta)
-        </p>
-      </section>
+      {siteConfig.quote?.text && (
+        <section
+          className="text-center p-8 sm:p-12 rounded-2xl border space-y-3"
+          style={{
+            backgroundColor: "var(--quote-bg)",
+            borderColor: "var(--border-color)",
+          }}
+        >
+          <div className="text-2xl sm:text-3xl font-serif italic max-w-2xl mx-auto leading-relaxed" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif-body)" }}>
+            &ldquo;{siteConfig.quote.text}&rdquo;
+          </div>
+          {siteConfig.quote.author && (
+            <p className="text-xs uppercase font-bold tracking-widest opacity-70" style={{ color: "var(--accent-red)" }}>
+              — {siteConfig.quote.author}
+            </p>
+          )}
+        </section>
+      )}
     </div>
   );
 }

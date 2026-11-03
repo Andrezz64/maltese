@@ -11,6 +11,8 @@ Um site editorial independente, estático e moderno, construído com **Next.js**
   - **Papel & Prensa Clássico:** Tons quentes de papel envelhecido e detalhes em vermelho carmesim.
   - **Sépia Livro Antigo:** Tons terrosos de biblioteca e conforto visual prolongado.
   - **Noturno Revolucionário:** Carvão e contraste refinado para leituras noturnas.
+- **Configuração Centralizada (`site.config.ts`):** Qualquer pessoa ou coletivo pode dar **Fork** no projeto e personalizar o nome, descrição, autor e repositório Git em um único arquivo na raiz.
+- **Integração Completa com Git no Navegador:** Escreva, edite e faça commits diretamente pelo navegador na branch configurada sem tocar no terminal e sem risco de conflito de commits.
 - **Zero Banco de Dados:** Todos os seus textos são arquivos `.md` na pasta `content/posts/`. Você tem soberania total sobre seus escritos.
 - **Ferramentas do Leitor:**
   - Barra de progresso de leitura no topo.
@@ -20,6 +22,34 @@ Um site editorial independente, estático e moderno, construído com **Next.js**
   - Impressão otimizada & Salvar em PDF limpo.
 - **Pesquisa & Filtros Interativos:** Busca em tempo real por palavras-chave, categorias e tags.
 - **SEO & Distribuição:** RSS Feed nativo (`/rss.xml`), Sitemap automatizado (`/sitemap.xml`) e OpenGraph tags para compartilhamento em redes sociais.
+
+---
+
+## Como Dar Fork e Configurar Seu Próprio Blog
+
+Qualquer pessoa ou grupo pode criar seu próprio blog a partir deste repositório com **hospedagem gratuita para sempre**:
+
+1. Clique em **Fork** no topo deste repositório no GitHub.
+2. Clone o repositório ou edite diretamente no GitHub o arquivo [`site.config.ts`](site.config.ts) na raiz:
+   ```ts
+   export const siteConfig = {
+     title: "Meu Caderno",
+     tagline: "Pensamento & Liberdade",
+     description: "Meu espaço independente de escrita...",
+     author: "Seu Nome ou Coletivo",
+     url: "https://meublog.vercel.app",
+     git: {
+       enabled: true,
+       provider: "github",
+       owner: "SEU-USUARIO-GITHUB",
+       repo: "SEU-REPOSITORIO",
+       branch: "main",
+       postsPath: "content/posts",
+     },
+   };
+   ```
+3. Conecte seu repositório na **Vercel**, **Cloudflare Pages** ou **Netlify** (todas oferecem plano gratuito).
+4. No editor web em `/gerador`, clique no botão **"Conectar Git"**, insira seu Token do GitHub (PAT) e publique seus textos diretamente pelo navegador!
 
 ---
 
