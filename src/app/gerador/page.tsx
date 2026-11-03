@@ -166,6 +166,9 @@ export default function GeradorMDPage() {
   // Author picker panel
   const [isAuthorPanelOpen, setIsAuthorPanelOpen] = useState(false);
 
+  // Stable ID for the current editing session — does not change as slug/title changes
+  const [draftId] = useState(() => `draft-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`);
+
   // Feedback states
   const [copied, setCopied] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
@@ -240,7 +243,7 @@ export default function GeradorMDPage() {
     const timer = setTimeout(() => {
       const now = Date.now();
       const currentDraft: SavedDraftItem = {
-        id: slug || "rascunho-atual",
+        id: draftId,
         title,
         slug,
         date,
@@ -263,7 +266,7 @@ export default function GeradorMDPage() {
         // Atualizar lista indexada de rascunhos
         const rawDrafts = localStorage.getItem(STORAGE_SAVED_DRAFTS);
         let drafts: SavedDraftItem[] = rawDrafts ? JSON.parse(rawDrafts) : [];
-        const existingIdx = drafts.findIndex((d) => d.slug === slug || d.id === currentDraft.id);
+        const existingIdx = drafts.findIndex((d) => d.id === currentDraft.id);
         if (existingIdx >= 0) {
           drafts[existingIdx] = currentDraft;
         } else {
