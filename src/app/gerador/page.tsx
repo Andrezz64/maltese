@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, useId } from "react";
 import Link from "next/link";
 import { marked } from "marked";
 import siteConfig from "@site-config";
@@ -166,9 +166,7 @@ export default function GeradorMDPage() {
   // Author picker panel
   const [isAuthorPanelOpen, setIsAuthorPanelOpen] = useState(false);
 
-  // Stable ID for the current editing session — does not change as slug/title changes
-  const [draftId] = useState(() => `draft-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`);
-
+ 
   // Feedback states
   const [copied, setCopied] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
@@ -180,6 +178,7 @@ export default function GeradorMDPage() {
   useEffect(() => {
     try {
       // Carregar rascunho
+
       const saved = localStorage.getItem(STORAGE_CURRENT_DRAFT);
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -243,7 +242,7 @@ export default function GeradorMDPage() {
     const timer = setTimeout(() => {
       const now = Date.now();
       const currentDraft: SavedDraftItem = {
-        id: draftId,
+        id: slug || "rascunho-atual",
         title,
         slug,
         date,
@@ -266,7 +265,7 @@ export default function GeradorMDPage() {
         // Atualizar lista indexada de rascunhos
         const rawDrafts = localStorage.getItem(STORAGE_SAVED_DRAFTS);
         let drafts: SavedDraftItem[] = rawDrafts ? JSON.parse(rawDrafts) : [];
-        const existingIdx = drafts.findIndex((d) => d.id === currentDraft.id);
+        const existingIdx = drafts.findIndex((d) => d.slug === slug || d.id === currentDraft.id);
         if (existingIdx >= 0) {
           drafts[existingIdx] = currentDraft;
         } else {
