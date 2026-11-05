@@ -20,7 +20,9 @@ A política fiscal engloba o conjunto de decisões do governo referentes a arrec
 
 Para entender o impacto dessa ferramenta no Brasil, basta olhar para a nossa história recente. Nos anos de ouro da economia brasileira no século XXI — impulsionados pelo boom das commodities e por políticas de valorização do salário mínimo e transferência de renda —, o Estado voltou a ocupar um papel ativo na indução do crescimento. Havia espaço para conciliar inclusão social com expansão econômica.
 
-Contudo, os equívocos e a deterioração dos controles fiscais no segundo mandato do governo Dilma Rousseff abriram brecha para uma ofensiva ideológica e política sem precedentes. A crise fabricada e o descontentamento econômico culminaram no golpe e na ascensão do governo de Michel Temer, cuja agenda inaugurou um ciclo de reformas liberais e entreguistas. O ápice desse processo foi a aprovação da Emenda Constitucional do Teto de Gastos (PEC 55/2016), um mecanismo inédito no mundo que congelou os investimentos públicos por duas décadas. Em vez de estabilizar a economia, o teto fiscal asfixiou os serviços públicos, travou a capacidade de investimento do Estado, incentivou o rentismo financeiro e aprofundou o processo de desindustrialização do país.
+Contudo, os equívocos e a deterioração dos controles fiscais no segundo mandato do governo Dilma Rousseff abriram brecha para uma ofensiva ideológica e política sem precedentes. A crise fabricada e o descontentamento econômico culminaram no golpe e na ascensão do governo de Michel Temer, cuja agenda inaugurou um ciclo de reformas liberais e entreguistas. O ápice desse processo foi a aprovação da Emenda Constitucional do Teto de Gastos (PEC 55/2016), um mecanismo inédito no mundo que congelou os investimentos públicos e pretendia perdurar por duas décadas. Em vez de estabilizar a economia, o teto fiscal asfixiou os serviços públicos, travou a capacidade de investimento do Estado, incentivou o rentismo financeiro e aprofundou o processo de desindustrialização do país.
+
+Ainda que a substituição do Teto de Gastos pelo Novo Arcabouço Fiscal em 2023 tenha garantido o respiro mínimo dos pisos constitucionais e recuperado a margem de investimentos públicos sufocada desde 2016, a trava estrutural não foi removida. Ao atrelar a expansão das despesas a limites teto (como a trava de 2,5% de crescimento real) e exigir metas contínuas de superávit primário, o mecanismo preserva a mesma premissa ortodoxa: priorizar a sinalização de austeridade ao mercado financeiro em detrimento de uma política robusta de desenvolvimento nacional. Trata-se de uma medicação para conter os sintomas da asfixia, mas que mantém intacta a doença da subordinação rentista.
 
 ---
 
@@ -36,7 +38,7 @@ Para o mercado financeiro, a "saúde fiscal" não significa emprego, renda ou de
 
 ### O que é austeridade?
 
-Economicamente, a austeridade define-se como a política de redução drástica dos gastos públicos e aumento de tributos — ou priorização do corte de despesas — com o objetivo declarando de equilibrar as contas fiscais e reduzir a relação dívida/PIB.
+Economicamente, a austeridade define-se como a política de redução drástica dos gastos públicos e aumento de tributos — ou priorização do corte de despesas — com o objetivo declarado de equilibrar as contas fiscais e reduzir a relação dívida/PIB.
 
 Na perspectiva da economia política, contudo, a austeridade é muito mais do que isso: ela é o *soft power* do capital financeiro, uma ferramenta de coerção institucional. Sob a lente do marxismo, o Estado não é um ente neutro, mas o comitê geridor dos interesses da classe dominante. A austeridade atua como um mecanismo de transferência de riqueza do trabalho para o capital. Ao suprimir o fundo público — recursos que poderiam financiar salários indiretos (saúde, educação, previdência) e infraestrutura —, a austeridade enfraquece a classe trabalhadora, desorganiza a capacidade de resistência sindical e garante que o capital excedente encontre novas frentes de valorização através da mercantilização de serviços estatais (privatizações e concessões).
 
@@ -71,7 +73,7 @@ A experiência da Europa pós-2010 oferece um laboratório em tempo real do frac
 
 No Brasil, a aprovação da EC 95/2016 (Teto de Gastos) serviu como um experimento radical de austeridade institucionalizada:
 
-* **Queda Implacável dos Investimentos:** Dados do IPEA e da Secretaria do Tesouro Nacional mostram que os investimentos públicos federais despencaram de cerca de **1,2% do PIB em 2014** para patamares históricos inferiores a **0,3% do PIB em 2021** — o menor nível em mais de cinco décadas.
+* **Queda Implacável dos Investimentos:** Dados do IPEA e da Secretaria do Tesouro Nacional mostram que os investimentos públicos federais despencaram de cerca de **1,2% do PIB em 2014** para patamares históricos em torno de **0,26% a 0,3% do PIB entre 2020 e 2021** — o menor nível em mais de cinco décadas.
 * **Falsa Promessa do Investimento Privado:** Ao contrário do prometido pela teoria da "confiança", a Formação Bruta de Capital Fixo (FBCF) privada permaneceu estagnada em torno de 15% a 17% do PIB, insuficiente para repor a depreciação e alavancar a infraestrutura nacional.
 * **Aprofundamento da Desindustrialização:** A participação da indústria de transformação no PIB brasileiro caiu para cerca de **10% a 11%**, patamar comparável ao do início do século XX, consolidando a reprimarização da pauta exportadora.
 
