@@ -93,6 +93,10 @@ interface GitAuthConfig {
 }
 
 export default function GeradorMDPage() {
+  // --- Draft ID (stable across title/slug changes) ---
+  // Initialize as empty string; will be set in useEffect to avoid prerender issues
+  const [draftId, setDraftId] = useState<string>("");
+
   // --- Post Metadata State ---
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
@@ -182,6 +186,12 @@ export default function GeradorMDPage() {
       const saved = localStorage.getItem(STORAGE_CURRENT_DRAFT);
       if (saved) {
         const parsed = JSON.parse(saved);
+        // Restore the stable draft ID if it exists, otherwise generate a new one
+        if (parsed.id) {
+          setDraftId(parsed.id);
+        } else {
+          setDraftId(`draft-${Date.now()}`);
+        }
         if (parsed.title) setTitle(parsed.title);
         if (parsed.slug) setSlug(parsed.slug);
         if (parsed.date) setDate(parsed.date);
@@ -196,6 +206,8 @@ export default function GeradorMDPage() {
         if (parsed.content !== undefined) setContent(parsed.content);
         if (parsed.updatedAt) setLastSaved(parsed.updatedAt);
       } else {
+        // No saved draft - generate a new draft ID and set today's date
+        setDraftId(`draft-${Date.now()}`);
         const today = new Date().toISOString().split("T")[0];
         setDate(today);
       }
@@ -236,13 +248,14 @@ export default function GeradorMDPage() {
 
   // --- 3. Auto-save current draft to LocalStorage ---
   useEffect(() => {
-    if (!isInitialized) return;
+    // Don't save if not initialized or if draftId is not yet set
+    if (!isInitialized || !draftId) return;
 
     setIsSaving(true);
     const timer = setTimeout(() => {
       const now = Date.now();
       const currentDraft: SavedDraftItem = {
-        id: slug || "rascunho-atual",
+        id: draftId, // Use stable draft ID instead of slug
         title,
         slug,
         date,
@@ -265,7 +278,8 @@ export default function GeradorMDPage() {
         // Atualizar lista indexada de rascunhos
         const rawDrafts = localStorage.getItem(STORAGE_SAVED_DRAFTS);
         let drafts: SavedDraftItem[] = rawDrafts ? JSON.parse(rawDrafts) : [];
-        const existingIdx = drafts.findIndex((d) => d.slug === slug || d.id === currentDraft.id);
+        // Find by stable draft ID only
+        const existingIdx = drafts.findIndex((d) => d.id === draftId);
         if (existingIdx >= 0) {
           drafts[existingIdx] = currentDraft;
         } else {
@@ -282,6 +296,7 @@ export default function GeradorMDPage() {
     return () => clearTimeout(timer);
   }, [
     isInitialized,
+    draftId,
     title,
     slug,
     date,
@@ -593,6 +608,8 @@ ${content.trim()}
 
   // Load a chosen Local Draft into Editor
   const handleSelectLocalDraft = (draft: SavedDraftItem) => {
+    // Restore the draft's original ID so edits update the same entry
+    setDraftId(draft.id);
     setTitle(draft.title);
     setSlug(draft.slug);
     setDate(draft.date);
@@ -612,13 +629,13 @@ ${content.trim()}
   };
 
   // Delete a draft from storage
-  const handleDeleteDraft = (e: React.MouseEvent, draftId: string) => {
+  const handleDeleteDraft = (e: React.MouseEvent, targetDraftId: string) => {
     e.stopPropagation();
     try {
       const raw = localStorage.getItem(STORAGE_SAVED_DRAFTS);
       if (raw) {
         const drafts: SavedDraftItem[] = JSON.parse(raw);
-        const filtered = drafts.filter((d) => d.id !== draftId);
+        const filtered = drafts.filter((d) => d.id !== targetDraftId);
         localStorage.setItem(STORAGE_SAVED_DRAFTS, JSON.stringify(filtered));
         setLocalDrafts(filtered);
       }
@@ -639,6 +656,9 @@ ${content.trim()}
       );
       if (res.exists && res.content) {
         const { metadata, content: parsedContent } = parseFrontmatterAndContent(res.content);
+
+        // Generate a new stable draft ID for this imported file
+        setDraftId(`draft-git-${Date.now()}`);
 
         if (metadata.title) setTitle(metadata.title);
         else setTitle(file.name.replace(/\.mdx?$/, ""));
@@ -683,6 +703,9 @@ ${content.trim()}
 
       const { metadata, content: parsedContent } = parseFrontmatterAndContent(text);
 
+      // Generate a new stable draft ID for this imported file
+      setDraftId(`draft-import-${Date.now()}`);
+
       if (metadata.title) setTitle(metadata.title);
       else setTitle(file.name.replace(/\.mdx?$/, ""));
 
@@ -713,6 +736,8 @@ ${content.trim()}
   // Start fresh / blank document
   const handleNewDocument = () => {
     const today = new Date().toISOString().split("T")[0];
+    // Generate a new stable draft ID for the new document
+    setDraftId(`draft-${Date.now()}`);
     setTitle("Novo Escrito");
     setSlug("novo-escrito");
     setDate(today);

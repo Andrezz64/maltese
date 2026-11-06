@@ -169,21 +169,21 @@ export default function Header() {
             </h1>
           </Link>
           <div className="mt-2 flex items-center justify-center gap-3">
-            <span className="h-[1px] w-8 sm:w-16" style={{ backgroundColor: "var(--accent-red)" }}></span>
+            <span className="h-[1px] w-8 sm:w-16 shrink-0" style={{ backgroundColor: "var(--accent-red)" }}></span>
             <p
-              className="text-xs sm:text-sm font-semibold tracking-widest uppercase flex flex-wrap items-center justify-center gap-1.5"
+              className="text-xs sm:text-sm font-semibold tracking-widest uppercase flex items-center justify-center gap-1.5"
               style={{ color: "var(--text-secondary)", letterSpacing: "0.22em" }}
             >
-              <span>{siteConfig.masthead?.prefix ?? "Revista aberta de"}</span>
+              <span className="whitespace-nowrap">{siteConfig.masthead?.prefix ?? "Revista aberta de"}</span>
               <span
-                className={`inline-block font-bold transition-all duration-300 transform ${isFade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
+                className={`inline-block font-bold whitespace-nowrap transition-all duration-300 transform ${isFade ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1"
                   }`}
-                style={{ color: "var(--accent-red)" }}
+                style={{ color: "var(--accent-red)", minWidth: "max-content" }}
               >
                 {rotatingWords[wordIndex]}
               </span>
             </p>
-            <span className="h-[1px] w-8 sm:w-16" style={{ backgroundColor: "var(--accent-red)" }}></span>
+            <span className="h-[1px] w-8 sm:w-16 shrink-0" style={{ backgroundColor: "var(--accent-red)" }}></span>
           </div>
         </div>
 

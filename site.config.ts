@@ -49,16 +49,16 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   title: "Maltése",
-  tagline: "Revista de Escritos, Crítica & Liberdade",
+  tagline: "Revista Open-source e livre",
   description:
-    "Página autoral e coletiva dedicada a ensaios, manifestos, pensamento crítico, filosofia social e reflexões sobre a liberdade e emancipação.",
+    "Revista autoral e coletiva dedicada a ensaios, manifestos, pensamento crítico, filosofia social e reflexões sobre a liberdade e emancipação.",
   author: "Maltese",
   url: "https://www.maltese.app.br/",
   language: "pt-BR",
 
   // Textos da seção Hero da página principal
   hero: {
-    badge: "100% Open-source • Publicação Soberana",
+    badge: "100% Open-source • Publicação Simplificada",
     title: "Revista soberana e livre de intermediários.",
     description:
       "Um ecossistema editorial de código aberto para quem valoriza a permanência das ideias e o controle sobre seus dados. Escreva em Markdown puro, comite direto pelo navegador e hospede gratuitamente em qualquer nuvem estática. Dê um fork e erga seu próprio espaço — sem algoritmos de vigilância, sem banco de dados e sem aprisionamento.",
@@ -86,21 +86,18 @@ export const siteConfig: SiteConfig = {
       "Odes",
       "Diálogos",
       "Aforismos",
-      "Manuscritos",
       "Contos",
-      "Narrativas",
+      "Sátiras",
       "Prosas",
       "Poéticas",
       "Confissões",
       "Parábolas",
-      "Solilóquios",
       "Fragmentos",
       "Memórias",
       "Glosas",
       "Apólogos",
       "Discursos",
       "Teses",
-      "Insubmissões",
       "Monólogos",
       "Prólogos",
       "Escritos",
